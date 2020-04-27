@@ -1,0 +1,346 @@
+points(c(1, 2), c(2, 3), pch = 21, type = "b", bg = "steelblue", col = "steelblue")#
+points(c(1, 2), c(1, 2), pch = 21, type = "b", bg = "firebrick", col = "firebrick")
+text(2, 1.5, "Genotype A", col = "firebrick", pos = 1)#
+text(2, 2.5, "Genotype B", col = "steelblue", pos = 1)#
+text(1.5, 0, "No GxE", pos = 3)
+par(mar = c(2, 2, 2, 2), mgp = c(0.8, 0, 0), mfrow = c(1, 2))#
+plot(c(0.5, 2.5), c(0, 3), axes = FALSE, xlab = "Environment", ylab = "Phenotype", type = "n")#
+box(bty = "l")#
+points(c(1, 2), c(2, 3), pch = 21, type = "b", bg = "steelblue", col = "steelblue")#
+points(c(1, 2), c(1, 2), pch = 21, type = "b", bg = "firebrick", col = "firebrick")#
+text(2, 1.5, "Genotype A", col = "firebrick", pos = 1)#
+text(2, 2.5, "Genotype B", col = "steelblue", pos = 1)#
+text(1.5, 0, "No GxE", pos = 3)#
+plot(c(0.5, 2.5), c(0, 3), axes = FALSE, xlab = "Environment", ylab = "Phenotype", type = "n")#
+box(bty = "l")#
+points(c(1, 2), c(1, 2), pch = 21, type = "b", bg = "firebrick", col = "firebrick")#
+points(c(1, 2), c(2, 1), pch = 21, type = "b", bg = "steelblue", col = "steelblue")#
+text(2, 2, "Genotype A", col = "firebrick", pos = 3)#
+text(2, 1, "Genotype B", col = "steelblue", pos = 1)
+text(1.5, 0, "GxE", pos = 3)
+par(mar = c(2, 2, 2, 2), mgp = c(0.8, 0, 0), mfrow = c(1, 2))#
+plot(c(0.5, 2.5), c(0, 3), axes = FALSE, xlab = "Environment", ylab = "Phenotype", type = "n")#
+box(bty = "l")#
+points(c(1, 2), c(2, 3), pch = 21, type = "b", bg = "steelblue", col = "steelblue")#
+points(c(1, 2), c(1, 2), pch = 21, type = "b", bg = "firebrick", col = "firebrick")#
+text(2, 1.7, "Genotype A", col = "firebrick", pos = 1)#
+text(2, 2.7, "Genotype B", col = "steelblue", pos = 1)#
+text(1.5, 0, "No GxE", pos = 3)#
+plot(c(0.5, 2.5), c(0, 3), axes = FALSE, xlab = "Environment", ylab = "Phenotype", type = "n")#
+box(bty = "l")#
+points(c(1, 2), c(1, 2), pch = 21, type = "b", bg = "firebrick", col = "firebrick")#
+points(c(1, 2), c(2, 1), pch = 21, type = "b", bg = "steelblue", col = "steelblue")#
+text(2, 2, "Genotype A", col = "firebrick", pos = 3)#
+text(2, 1, "Genotype B", col = "steelblue", pos = 1)#
+text(1.5, 0, "GxE", pos = 3)
+load("~/Downloads/female.qg.RData")
+ls()
+dim(var.comp)
+sum(grep("XLOC", rownames(var.com)))
+sum(grep("XLOC", rownames(var.comp)))
+length(grep("XLOC", rownames(var.comp)))
+qt(0.05/2, 198)
+qt(0.05/2, 198, lower.tail = F)
+p2r <- function(p, n) {#
+  t <- qt(p/2, df = n-2, lower.tail = FALSE)#
+  return(t/sqrt(n - 2 + t^2))#
+}
+p2r(runif(100), 198)
+hist(p2r(runif(100), 198))
+S = 1:10
+p = runif(100)
+p[S] = 1
+p
+p[-S] = 0
+p
+ES <- function(plist, S, n) {#
+  N <- length(plist)#
+  p <- rep(1, N)#
+  p[S] <- p2r(p.list, n-2)#
+  p[S] <- p[S]/sum(p[S])#
+  p[-S] <- p[-S]/(N - length(S))#
+  p.sorted <- p[order(plist)]#
+  p.cumsum <- cumsum(p.sorted)#
+  plot(p.cumsum, type="b", pch=16, cex=0.3)#
+  return(max(p.cumsum))#
+}
+plist <- runif(1000)
+S <- which(plist <= 0.1)
+ES(plist, S)
+ES(plist, S, 200)
+ES <- function(plist, S, n) {#
+  N <- length(plist)#
+  p <- rep(1, N)#
+  p[S] <- p2r(plist, n-2)#
+  p[S] <- p[S]/sum(p[S])#
+  p[-S] <- p[-S]/(N - length(S))#
+  p.sorted <- p[order(plist)]#
+  p.cumsum <- cumsum(p.sorted)#
+  plot(p.cumsum, type="b", pch=16, cex=0.3)#
+  return(max(p.cumsum))#
+}
+ES(plist, S, 200)
+ES <- function(plist, S, n) {#
+  N <- length(plist)#
+  p <- rep(1, N)#
+  p[S] <- p2r(plist[S], n-2)#
+  p[S] <- p[S]/sum(p[S])#
+  p[-S] <- p[-S]/(N - length(S))#
+  p.sorted <- p[order(plist)]#
+  p.cumsum <- cumsum(p.sorted)#
+  plot(p.cumsum, type="b", pch=16, cex=0.3)#
+  return(max(p.cumsum))#
+}
+ES(plist, S, 200)
+ES <- function(plist, S, n) {#
+  N <- length(plist)#
+  p <- rep(-1, N)#
+  p[S] <- p2r(plist[S], n-2)#
+  p[S] <- p[S]/sum(p[S])#
+  p[-S] <- p[-S]/(N - length(S))#
+  p.sorted <- p[order(plist)]#
+  p.cumsum <- cumsum(p.sorted)#
+  plot(p.cumsum, type="b", pch=16, cex=0.3)#
+  return(max(p.cumsum))#
+}
+ES(plist, S, 200)
+plist
+S <- sample(1:1000, 50, replace=F)
+ES(plist, S, 200)
+S <- sample(1:1000, 50, replace=F)
+ES(plist, S, 200)
+205*204/2
+xA = c(rep(0, 25), rep(1, 50), rep(2, 25))
+xD = c(rep(0, 25), rep(1, 50), rep(2, 25))
+cov(xA, xD)
+xA = function(p) { return(c(rep(0, 100*p^2), rep(1, 100*2*p*(1-p)), rep(2, (1-p)^2))) }
+xA(0.5)
+xD = function(p) { return(c(rep(0, 100*p^2), rep(1, 100*2*p*(1-p)), rep(0, (1-p)^2))) }
+cov(xA(0.5), xD(0.5))
+xA(0.5)
+p = 0.5
+c(rep(0, 100*p^2), rep(1, 100*2*p*(1-p)), rep(2, (1-p)^2))
+xD = function(p) { return(c(rep(0, 100*p^2), rep(1, 100*2*p*(1-p)), rep(0, 100*(1-p)^2))) }
+xA = function(p) { return(c(rep(0, 100*p^2), rep(1, 100*2*p*(1-p)), rep(2, 100*(1-p)^2))) }
+cov(xA(0.5), xD(0.5))
+cov(xA(0.7), xD(0.7))
+2*0.7*0.3
+2*0.7*0.3*(1-2*0.7*0.3 - 2*0.3^2)
+2*0.7*0.3*-0.3
+2*0.7*0.3*0.4
+xDp = function(p) { return(c(rep(0, 100*p^2), rep(2*p, 100*2*p*(1-p)), rep(4*p-2, 100*(1-p)^2))) }
+cov(xA(0.5), xDp(0.5))
+cov(xA(0.3), xDp(0.3))
+cov(xA(0.7), xDp(0.7))
+cov(xA(0.2), xDp(0.2))
+xD(0.5)
+xAp = function(p) { return(c(rep(0, 100*p^2), rep(2*(1-p)^2/(p^2 + (1-p)^2), 100*2*p*(1-p)), rep(2, 100*(1-p)^2))) }
+cov(xAp(0.5), xD(0.5))
+cov(xAp(0.3), xD(0.3))
+cov(xAp(0.6), xD(0.6))
+var(xAp(0.5))
+var(xD(0.5))
+var(xD(1))
+xD(1)
+xD
+var(xD(1)*2)
+var(xD(0.5)*2)
+var(xD(0.2)*2)
+xAp(0.2)
+var(xAp(0.2))
+install.packages("RColorBrewer")
+?plotmath
+y = c(rep(-1, 25), rep(0, 50), rep(1, 50))
+x = c(rep(0, 25), rep(2, 75))
+lm(y ~ x)
+y
+x
+length(y)
+length(x)
+y = c(rep(-1, 25), rep(0, 50), rep(1, 25))
+lm(y ~ x)
+y = c(rep(-1, 49), rep(0, 42), rep(1, 9))
+x = c(rep(0, 49), rep(2, 51))
+lm(y ~ x)
+1/(1+0.7)
+var(y)
+summary(lm(y~x))
+0.8235*var(y)
+4*0.3*0.7^2/(1+0.7)
+4*0.3*0.7^2/(1+0.7)*(1)
+summary(lm(y~x))
+summary(lm(y~x))$r
+str(summary(lm(y~x)))
+summary(lm(y~x))$r.squared
+summary(lm(y~x))$r.squared*var(y)
+y = c(rep(-1, 64), rep(0, 32), rep(1, 4))
+x = c(rep(0, 64), rep(2, 36))
+summary(lm(y~x))$r.squared*var(y)
+4*0.2*0.8/1.8
+4*0.2*0.8/1.8*1
+4*0.2*0.8^2/1.8*1
+mean(y)
+mean(x)
+y = c(rep(-1, 6400), rep(0, 3200), rep(1, 400))
+x = c(rep(0, 6400), rep(2, 3600))
+summary(lm(y~x))$r.squared*var(y)
+vg <- function(p, a, d) {#
+  q <- 1 - p#
+  return(2*p*q*a^2 + 2*p*q*(p^2+q^2)*d^2 - 4*p*q(p-q)*a*d)#
+}
+var(y)
+vg(0.2, 1, 0)
+vg <- function(p, a, d) {#
+  q <- 1 - p#
+  return(2*p*q*a^2 + 2*p*q*(p^2+q^2)*d^2 - 4*p*q*(p-q)*a*d)#
+}
+vg(0.2, 1, 0)
+vdprime <- function(p, a, d) {#
+  q <- 1 - p#
+  return(4*p*q^2/(1+q)*(a+d*q)^2)#
+}
+vdprime(0.2, 1, 0)
+vdprime <- function(p, a, d) {#
+  q <- 1 - p#
+  return(4*p*q^2/(1+q)*(a+d*q)^2)#
+}#
+#
+vg <- function(p, a, d) {#
+  q <- 1 - p#
+  return(2*p*q*a^2 + 2*p*q*(p^2+q^2)*d^2 - 4*p*q*(p-q)*a*d)#
+}
+vdprime(0.2, 1, 1)
+vg(0.2, 1, 1)
+?plotmath
+ybar <- function(a, d, p) { return( a*(p-(1-p)) + 2*d*p*(1-p) ) }#
+xbar <- function(p) { 4*p*(1-p) + 2*p^2 }#
+delta <- function(a, d, p) { return( (1-p)/(2-p)*d + 1/(2-p)*a ) }#
+line.a <- function(a, d, p) { ybar(a, d, p) - delta(a, d, p)*xbar(p) }
+line.a(1, 0, 0.4)
+delta(1, 0, 0.4)
+ybar(1, 0, p)
+ybar(1, 0, 0.4)
+x <- rnorm(1000)#
+hist(x, xlim = c(-4,4))#
+usr <- par("usr")#
+clip(usr[1], -2, usr[3], usr[4])
+hist(x, col = 'red', add = TRUE)
+?clip
+65000*5
+1500 + 22000
+1170*6.3
+exp1 = read.table(file = stdin(), header = F, as.is = T)
+exp1
+exp1 = scan(file = stdin(), what = 1)
+exp = scan(file = stdin(), what = 1)
+exp2 = scan(file = stdin(), what = 1)
+plot(exp1, exp2)
+plot(c(1, 2), c(-4, 1.2))
+for(i in 1:length(exp1)) { lines(c(1, 2), c(exp1[i], exp2[i]), col = i)}
+exp1 = scan(file = stdin(), what = 1)
+exp2 = scan(file = stdin(), what = 1)
+plot(c(1, 2), c(-4, 1.2))
+plot(exp1, exp2)
+cor(exp1, exp2, method = "spearman")
+plot(c(1, 2), c(2, 2))
+for(i in 1:length(exp1)) { lines(c(1, 2), c(exp1[i], exp2[i]), col = i)}
+plot(c(1, 2), c(-2, 2))
+for(i in 1:length(exp1)) { lines(c(1, 2), c(exp1[i], exp2[i]), col = i)}
+exp1 = scan(file = stdin(), what = 1)
+exp2 = scan(file = stdin(), what = 1)
+plot(exp1, exp2)
+plot(c(1, 2), c(-1, 2))
+for(i in 1:length(exp1)) { lines(c(1, 2), c(exp1[i], exp2[i]), col = i)}
+cor(exp1, exp2)
+cor(exp1, exp2, method = "spearman")
+plot(c(1, 2), c(-1.5, 2.5))
+for(i in 1:length(exp1)) { lines(c(1, 2), c(exp1[i], exp2[i]), col = i)}
+plot(c(1, 2), c(-1.5, 2.5))
+for(i in 1:length(exp1)) { lines(c(1, 2), c(exp1[i], exp2[i]), col = i)}
+5500*700000
+2^31 - 1
+plot(seq(-3, 3, 0.01), dnorm(seq(-3, 3, 0.01), type = "l")
+plot(seq(-3, 3, 0.01), dnorm(seq(-3, 3, 0.01)), type = "l")
+plot(seq(-3, 3, 0.01), dnorm(seq(-3, 3, 0.01)), type = "l", axes = FALSE)
+plot(seq(-3, 3, 0.01), dnorm(seq(-3, 3, 0.01)), type = "l", axes = FALSE, xlab = "", ylab = "")
+plot(seq(-3, 3, 0.01), dnorm(seq(-3, 3, 0.01)), type = "l", axes = FALSE, xlab = "", ylab = "", lwd = 10)
+plot(seq(-3, 3, 0.01), dnorm(seq(-3, 3, 0.01)), type = "l", axes = FALSE, xlab = "", ylab = "", lwd = 10, col = "purple")
+plot(seq(-3, 3, 0.01), dnorm(seq(-3, 3, 0.01)), type = "l", axes = FALSE, xlab = "", ylab = "", lwd = 10, col = "black")
+75/6%
+75/0.06
+237.25*4
+237.25*2
+g1 = rnorm(200)
+g2 = rnorm(200)
+g1 = rnorm(200)
+g2 = g1 + rnorm(200)
+g1
+g2
+plot(g1, g2)
+plot(scale(g1), scale(g2))
+plot(scale(g1), scale(g2), xlab = "g1", ylab = "g2")
+plot(scale(g1), scale(g2), xlab = "Gene 1 at condition A", ylab = "Gene 2 at condition A")
+plot(scale(g1), scale(g2), xlab = "Gene 1", ylab = "Gene 2")
+g11 <- g1
+g12 <- g2
+plot(scale(g11), scale(g12), xlab = "Gene 1", ylab = "Gene 2")
+library("RColorBrewer")
+plot(scale(g11), scale(g12), xlab = "Gene 1", ylab = "Gene 2", pch = 16, col = brewer.pal(9, "Reds")[6])
+plot(scale(g11), scale(g12), xlab = "Gene 1", ylab = "Gene 2", pch = 16, col = brewer.pal(9, "Reds")[6], mgp = c(2.5, 0.5, 0))
+plot(scale(g11), scale(g12), xlab = "Gene 1", ylab = "Gene 2", pch = 16, col = brewer.pal(9, "Reds")[6], mgp = c(1.5, 0.5, 0))
+plot(scale(g11), scale(g12), xlab = "Gene 1", ylab = "Gene 2", pch = 16, col = brewer.pal(9, "Reds")[6], mgp = c(1.5, 0.5, 0), tck = -0.015)
+g21 <- g1 + rnorm(200)
+plot(scale(g11), scale(g21), xlab = "Condition A", ylab = "Condition B", pch = 16, col = "grey50")
+plot(scale(g11), scale(g21), xlab = "Condition A", ylab = "Condition B", pch = 16, col = "grey50", mgp = c(1.5, 0.5, 0), tck = -0.015)
+plot(scale(g11), scale(g12), xlab = "Gene 1", ylab = "Gene 2", pch = 16, col = brewer.pal(9, "Reds")[6], mgp = c(1.5, 0.5, 0), tck = -0.015)
+plot(scale(g11), scale(g21), xlab = "Condition A", ylab = "Condition B", pch = 16, col = "grey50", mgp = c(1.5, 0.5, 0), tck = -0.015)
+plot(scale(g11), scale(g12), xlab = "Gene 1", ylab = "Gene 2", pch = 16, col = brewer.pal(9, "Reds")[6], mgp = c(1.5, 0.5, 0), tck = -0.015)
+plot(scale(g11), scale(g21), xlab = "Condition A", ylab = "Condition B", pch = 16, col = "grey50", mgp = c(1.5, 0.5, 0), tck = -0.015)
+g22 <- g2 + rnorm(200)
+plot(scale(g12), scale(g22), xlab = "Condition A", ylab = "Condition B", pch = 16, col = "grey50", mgp = c(1.5, 0.5, 0), tck = -0.015)
+g22 <- g12 + rnorm(200)
+plot(scale(g12), scale(g22), xlab = "Condition A", ylab = "Condition B", pch = 16, col = "grey50", mgp = c(1.5, 0.5, 0), tck = -0.015)
+plot(scale(g21), scale(g22), xlab = "Gene 1", ylab = "Condition B", pch = 16, col = "grey50", mgp = c(1.5, 0.5, 0), tck = -0.015)
+plot(scale(g21), scale(g22), xlab = "Gene 1", ylab = "Gene 2", pch = 16, col = brewer.pal(9, "Blues")[6], mgp = c(1.5, 0.5, 0), tck = -0.015)
+cor(g21, g22)
+cor(g11, g21)
+install.packages("RColorBrewer")
+1.79+0.75
+(1.79+0.75)*1365
+0.34*1365
+85*1.03^5
+90*1.03^5
+90*1.03^7
+855 - 355
+500/2
+200
+100
+101 + 119 + 119
+339/3
+77 + 119 + 79
+275/3
+113*0.75
+dd <- read.table(header = T, as.is = T)
+dd <- read.table(file = stdin(), header = T, as.is = T)
+head(dd)
+dd[, -1]
+prcomp(dd[, -1])
+?prcomp
+prcomp(dd[, -1], scale = T)
+prcomp(t(dd[, -1]), scale = T)
+kk = prcomp(t(dd[, -1]), scale = T)
+predict(kk)
+kk = prcomp(dd[, -1], scale = T)
+predict(kk)
+80000*1.05^4
+library("openxlsx")
+setwd("~/work/projects/akiGroomingProject/")
+ls()
+system("ls")
+setwd("OECD sponta data/")
+system("ls")
+kk = read.xlsx("101-287 female.xlsx", sheet = 1)
+kk
+kk = read.xlsx("101-287 female.xlsx", sheet = 1, header = FALSE)
+kk = read.xlsx("101-287 female.xlsx", sheet = 1, colNames = FALSE)
+head(kk)
