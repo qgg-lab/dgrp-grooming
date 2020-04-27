@@ -4,7 +4,7 @@ Data and codes to accompany the DGRP spontaneous grooming paper.
 
 #### 1. Read data from xlsx files
 
-The grooming data are stored in xlsx files. These data were read by the `readData.R` script as run by the commands in `readData.bash`. This step produced the `all.csv` file. This file contains all types of behaviors recorded as in the original data.
+The grooming data are stored in xlsx files in the `xlsx` directory. These data were read by the `readData.R` script as run by the commands in `readData.bash`. This step produced the `all.csv` file. This file contains all types of behaviors recorded as in the original data.
 
 #### 2. Process data for ANOVA and GWAS
 
@@ -14,4 +14,10 @@ The grooming dta in `all.csv` was then processed to have total grooming time usi
 
 ANOVA, including mixed model for variance components and GLM to test for significance of variance components, were performed using the SAS program `anova.sas`.
 
+#### 4. GWAS
 
+GWAS was performed using the DGRP webserver [http://dgrp2.gnets.ncsu.edu](http://dgrp2.gnets.ncsu.edu).
+
+#### 5. RNAi data
+
+RNAi raw data are in the `newRNAi.csv` file.
